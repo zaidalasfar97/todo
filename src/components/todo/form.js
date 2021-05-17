@@ -1,26 +1,14 @@
-import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import FormHook from './../hooks/formHook';
 
 const TodoForm = (props) => {
-    const [item, setItem] = useState({})
-
-    const handleInputChange = (e) => {
-        setItem({ ...item, [e.target.name]: e.target.value })
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        e.target.reset();
-        props.handleSubmit(item);
-        const itemDetails = {};
-        setItem({ itemDetails });
-    };
-
+    //eslint-disable-next-line no-unused-vars
+    const [item, handleInputChange, handleSubmit] = FormHook(props);
     return (
         <>
             <h3>Add Item</h3>
-            <form onSubmit={handleSubmit}>
-                <Form.Group>
+            <form onSubmit={handleSubmit} >
+                <Form.Group >
                     <Form.Label>
                         <span>To Do Item</span>
                         <input

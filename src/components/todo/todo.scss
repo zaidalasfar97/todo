@@ -23,6 +23,32 @@ body, html {
     }
 
 }
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    height: 350px;
+    margin: 80px;
+}
+
+.card-body{
+    height: 290px;
+    margin: 20px;
+}
+.list-group{
+    height: 50%;
+}
+.difficultly {
+    position: relative;
+      bottom: -35px;
+      left: 75%;
+  }
 
 .todo {
 
@@ -79,6 +105,7 @@ body, html {
                  display:inline-block;
                  padding: .2em .25em;
                  width: 300px;
+                 display: block;
              }
 
             button {
