@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import TodoForm from './form.js';
-import TodoList from './list.js';
+import TodoForm from './form';
+
+import TodoList from './list';
 
 import './todo.scss';
 

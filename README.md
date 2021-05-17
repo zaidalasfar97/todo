@@ -1,8 +1,8 @@
 # Getting Started with Create React App
 
 # [netlify](https://youthful-minsky-d511b7.netlify.app/)
-# [PR](https://github.com/zaidalasfar97/todo/pull/4)
-![UML](./todo.png)
+# [PR](https://github.com/zaidalasfar97/todo/pull/5)
+![UML](./todo1.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
