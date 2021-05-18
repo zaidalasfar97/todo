@@ -1,123 +1,108 @@
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap/scss/bootstrap';
 
-body, html {
-    height: 100%;
-    margin: 0;
-    padding:0;
-    width: 100%;
+body,
+html {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	width: 100%;
 }
+
 .todo-details {
-    display:flex;
-    flex-direction:column;
+	display: flex;
+	flex-direction: column;
 
-    header {
-        display:flex;
-        flex-direction:row;
-        justify-content:space-between;
-        padding:.5em 1em;
-    }
+	header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		padding: 0.5em 1em;
+	}
 
-    .item {
-        flex:1;
-        padding: 1em;
-    }
-
-}
-.card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: .25rem;
-    height: 350px;
-    margin: 80px;
+	.item {
+		flex: 1;
+		padding: 1em;
+	}
 }
 
-.card-body{
-    height: 290px;
-    margin: 20px;
+.list-group {
+	height: 20%;
 }
-.list-group{
-    height: 50%;
+
+.difficulty {
+	position: relative;
+	bottom: 0;
+	left: 75%;
 }
-.difficultly {
-    position: relative;
-      bottom: -35px;
-      left: 75%;
-  }
+
+.badge {
+	cursor: pointer;
+}
 
 .todo {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	margin: 2em;
 
-    display:flex;
-    flex-direction:row;
-    justify-content: flex-start;
-    margin: 2em;
+	form {
+		display: flex;
+		flex-direction: column;
+		margin-right: 2em;
 
-    form {
+		label {
+			display: flex;
+			flex-direction: column;
+			margin-bottom: 1em;
+		}
+	}
 
-        display:flex;
-        flex-direction:column;
-        margin-right: 2em;
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
 
-        label {
-            display: flex;
-            flex-direction:column;
-            margin-bottom: 1em;
-        }
-    }
+		li {
+			align-items: center;
+			display: flex;
+			flex-direction: row;
+			font-size: 0.75em;
+			margin: 0.75em 0.5em;
 
-    ul {
-        list-style-type:none;
-        margin:0;
-        padding:0;
+			&.complete-true {
+				span {
+					background: pink;
+					text-decoration: line-through;
+					&:hover {
+						background: seagreen;
+					}
+				}
+			}
 
-        li {
+			span {
+				background: #e0e0e0;
+				cursor: pointer;
+				&:hover {
+					background: pink;
+				}
+			}
+			span,
+			input {
+				border: 0.5px solid #eee;
+				display: inline-block;
+				padding: 0.2em 0.25em;
+				width: 300px;
+				display: block;
+			}
 
-            align-items: center;
-            display:flex;
-            flex-direction:row;
-            font-size: .75em;
-            margin: .75em .5em;
-
-            &.complete-true {
-              span {
-                background: pink;
-                text-decoration:line-through;
-                &:hover {
-                   background: seagreen;
-                }
-              }
-            }
-
-            span {
-                background: #e0e0e0;
-                cursor:pointer;
-                &:hover {
-                    background: pink;
-                }
-            }
-             span, input {
-                 border: .5px solid #eee;
-                 display:inline-block;
-                 padding: .2em .25em;
-                 width: 300px;
-                 display: block;
-             }
-
-            button {
-                background: transparent;
-                border:none;
-                color:blue;
-                cursor:pointer;
-                padding:0;
-                margin: 0 .75em;
-            }
-
-        }
-    }
-
+			button {
+				background: transparent;
+				border: none;
+				color: blue;
+				cursor: pointer;
+				padding: 0;
+				margin: 0 0.75em;
+			}
+		}
+	}
 }
