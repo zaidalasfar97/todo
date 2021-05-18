@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const FormHook = (props) => {
+const useForm = (props) => {
     const [item, setItem] = useState({});
 
     const handleInputChange = (e) => {
@@ -10,7 +10,7 @@ const FormHook = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         e.target.reset();
-        props.handleSubmit(item);
+        props.handleSubmit(1, 'post', item);
         const items = {};
         setItem({ items });
     };
@@ -18,4 +18,4 @@ const FormHook = (props) => {
     return [item, handleInputChange, handleSubmit];
 };
 
-export default FormHook;
+export default useForm;
