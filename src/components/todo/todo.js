@@ -35,25 +35,12 @@ const ToDo = () => {
             </Navbar>
 
             <Form
-                style={{ margin: '50px auto 0', width: '500px', backgroundColor: '#b00a1a', padding: '20px 20px 5px 20px', }}
+                style={{ margin: '50px auto ', width: '350px', backgroundColor: '#b00a1a', padding: '20px 20px 5px 20px', }}
             >
                 <div key={`inline-radio`} className="mb-3">
                     <Form.Check
                         inline
-                        label="completed To Do Item"
-                        name="sort"
-                        type="radio"
-                        id={`inline-radio-1`}
-                        onClick={() => {
-                            paginationCreate.setOffset(0);
-                            paginationCreate.setItems(
-                                paginationCreate.list.filter((item) => item.complete === true),
-                            );
-                        }}
-                    />
-                    <Form.Check
-                        inline
-                        label="difficulty"
+                        label="Difficulty"
                         name="sort"
                         type="radio"
                         id={`inline-radio-2`}
@@ -67,7 +54,21 @@ const ToDo = () => {
                     />
                     <Form.Check
                         inline
-                        label="pending To Do Item"
+                        label="Completed"
+                        name="sort"
+                        type="radio"
+                        id={`inline-radio-1`}
+                        onClick={() => {
+                            paginationCreate.setOffset(0);
+                            paginationCreate.setItems(
+                                paginationCreate.list.filter((item) => item.complete === true),
+                            );
+                        }}
+                    />
+
+                    <Form.Check
+                        inline
+                        label="Pending "
                         name="sort"
                         type="radio"
                         id={`inline-radio-3`}
