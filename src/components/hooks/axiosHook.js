@@ -1,9 +1,13 @@
 import axios from 'axios';
 import { useContext } from 'react';
-import { PaginationCreate } from './../context/pagination';
+import { PaginationContext } from './../context/pagination';
+import { LoginContext } from './../auth/context';
 
 const useAjax = (url) => {
-    const paginationCreate = useContext(PaginationCreate);
+    const paginationContext = useContext(PaginationContext);
+    const loginContext = useContext(LoginContext);
+
+    console.log(loginContext.user.user.type);
 
     let config = {
         headers: {
@@ -16,37 +20,45 @@ const useAjax = (url) => {
     const fetchingData = async (id, method = 'get', item) => {
         if (method === 'get') {
             const results = await axios[method](url, config);
-            paginationCreate.setItems([...results.data.results]);
-            paginationCreate.setList([...results.data.results]);
+            paginationContext.setItems([...results.data.results]);
+            paginationContext.setList([...results.data.results]);
         }
 
-        if (method === 'post') {
+        if (
+            method === 'post' &&
+            (loginContext.user.user.type === 'admin' ||
+                loginContext.user.user.type === 'editor')
+        ) {
             item.due = new Date();
             const results = await axios[method](url, item, config);
-            paginationCreate.setItems([...paginationCreate.items, results.data]);
+            paginationContext.setItems([...paginationContext.items, results.data]);
         }
 
-        if (method === 'put') {
-            let item = paginationCreate.items.filter((i) => i._id === id)[0] || {};
+        if (
+            method === 'put' &&
+            (loginContext.user.user.type === 'admin' ||
+                loginContext.user.user.type === 'editor')
+        ) {
+            let item = paginationContext.items.filter((i) => i._id === id)[0] || {};
 
             if (item._id) {
                 item.complete = !item.complete;
                 const results = await axios[method](`${url}/${id}`, item, config);
-                paginationCreate.setItems(
-                    paginationCreate.items.map((listItem) =>
+                paginationContext.setItems(
+                    paginationContext.items.map((listItem) =>
                         listItem._id === item._id ? results.data : listItem,
                     ),
                 );
             }
         }
 
-        if (method === 'delete') {
-            let item = paginationCreate.items.find((i) => i._id === id) || {};
+        if (method === 'delete' && loginContext.user.user.type === 'admin') {
+            let item = paginationContext.items.find((i) => i._id === id) || {};
 
             if (item._id) {
                 const results = await axios[method](`${url}/${id}`, config);
-                paginationCreate.setItems(
-                    paginationCreate.items.filter(
+                paginationContext.setItems(
+                    paginationContext.items.filter(
                         (listItem) => listItem._id !== results.data._id,
                     ),
                 );

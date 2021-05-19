@@ -2,80 +2,87 @@ import React, { useEffect, useContext } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
 import useAjax from './../hooks/axiosHook';
-import { Navbar, Container, Row, Col, Card, Pagination, Form } from 'react-bootstrap';
-import { PaginationCreate } from './../context/pagination';
+import {
+    Navbar,
+    Container,
+    Row,
+    Col,
+    Card,
+    Pagination,
+    Form,
+} from 'react-bootstrap';
+import { PaginationContext } from './../context/pagination';
 import './todo.scss';
 
 const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
 
 const ToDo = () => {
-    const fetchingData = useAjax(todoAPI);
-    const paginationCreate = useContext(PaginationCreate);
+    const fetching = useAjax(todoAPI);
+    const paginationContext = useContext(PaginationContext);
 
     useEffect(() => {
-        document.title = `To Do List: incomplete ${paginationCreate.items.filter((item) => item.complete).length
+        document.title = `To Do List: incomplete ${paginationContext.items.filter((item) => item.complete).length
             }`;
     });
     // eslint-disable-next-line
-    useEffect(fetchingData, []);
+    useEffect(fetching, []);
 
     return (
         <>
-            <Navbar
-                expand="lg"
-                variant="dark"
-                bg="dark"
-                style={{ width: '80%', margin: '40px auto 20px', padding: '20px' }}
+            <Navbar expand="lg" variant="dark" bg="dark"
+                style={{ width: '80%', margin: '30px auto', padding: '20px' }}
             >
                 <Navbar.Brand>
                     There are (
-					{paginationCreate.items.filter((item) => item.complete).length})
+					{paginationContext.items.filter((item) => item.complete).length})
 					Items To Complete
 				</Navbar.Brand>
             </Navbar>
 
             <Form
-                style={{ margin: '50px auto ', width: '350px', backgroundColor: '#b00a1a', padding: '20px 20px 5px 20px', }}
+                style={{
+                    margin: '20px auto ', width: '500px', backgroundColor: '#bd2130',
+                    padding: '20px 25px',
+                }}
             >
                 <div key={`inline-radio`} className="mb-3">
                     <Form.Check
                         inline
-                        label="Difficulty"
-                        name="sort"
-                        type="radio"
-                        id={`inline-radio-2`}
-                        onClick={() => {
-                            paginationCreate.setOffset(0);
-                            let sorted = paginationCreate.list.sort(
-                                (a, b) => a.difficulty - b.difficulty,
-                            );
-                            paginationCreate.setItems([...sorted]);
-                        }}
-                    />
-                    <Form.Check
-                        inline
-                        label="Completed"
+                        label="completed To Do Item"
                         name="sort"
                         type="radio"
                         id={`inline-radio-1`}
                         onClick={() => {
-                            paginationCreate.setOffset(0);
-                            paginationCreate.setItems(
-                                paginationCreate.list.filter((item) => item.complete === true),
+                            paginationContext.setOffset(0);
+                            paginationContext.setItems(
+                                paginationContext.list.filter((item) => item.complete === true),
                             );
                         }}
                     />
-
                     <Form.Check
                         inline
-                        label="Pending "
+                        label="difficulty"
+                        name="sort"
+                        type="radio"
+                        id={`inline-radio-2`}
+                        onClick={() => {
+                            paginationContext.setOffset(0);
+                            let sorted = paginationContext.list.sort(
+                                (a, b) => a.difficulty - b.difficulty,
+                            );
+                            paginationContext.setItems([...sorted]);
+                        }}
+                    />
+                    <Form.Check
+                        inline
+                        label="pending To Do Item"
                         name="sort"
                         type="radio"
                         id={`inline-radio-3`}
                         onClick={() => {
-                            paginationCreate.setOffset(0);
-                            paginationCreate.setItems(
-                                paginationCreate.list.filter(
+                            paginationContext.setOffset(0);
+                            paginationContext.setItems(
+                                paginationContext.list.filter(
                                     (item) => item.complete === false,
                                 ),
                             );
@@ -90,82 +97,80 @@ const ToDo = () => {
                         <Card>
                             <Card.Body>
                                 <Card.Text>
-                                    <TodoForm handleSubmit={fetchingData} />
+                                    <TodoForm handleSubmit={fetching} />
                                 </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col md={{ span: 5, offset: 1 }} style={{ height: '350px' }}>
                         <TodoList
-                            list={paginationCreate.items}
-                            handleComplete={fetchingData}
-                            handleDelete={fetchingData}
+                            list={paginationContext.items}
+                            handleComplete={fetching}
+                            handleDelete={fetching}
                         />
                     </Col>
                 </Row>
-                <Pagination style={{ margin: '1rem auto 0', width: '120px' }}>
+                <Pagination style={{ margin: 'auto auto', width: '120px' }}>
                     <Pagination.Prev
-                        disabled={!paginationCreate.disable}
                         onClick={() => {
-                            let count = paginationCreate.page;
+                            let count = paginationContext.page;
                             if (count > 1) --count;
 
                             let arr = [];
 
                             for (
-                                let index = paginationCreate.offset;
-                                index < paginationCreate.itemsNum;
+                                let index = paginationContext.offset;
+                                index < paginationContext.itemsNum;
                                 index++
                             ) {
-                                arr.push(paginationCreate.items[index]);
+                                arr.push(paginationContext.items[index]);
                             }
 
-                            let offset = paginationCreate.offset;
+                            let offset = paginationContext.offset;
                             if (offset >= 3) offset -= 3;
-                            if (paginationCreate.offset < 3) {
-                                paginationCreate.setDisable(false);
+                            if (paginationContext.offset < 3) {
+                                paginationContext.setDisable(false);
                                 offset = 0;
                             }
 
-                            paginationCreate.setOffset(offset);
-                            paginationCreate.setPage(count);
+                            paginationContext.setOffset(offset);
+                            paginationContext.setPage(count);
                         }}
                     />
                     <Pagination.Next
-                        disabled={paginationCreate.disable}
                         onClick={() => {
-                            let count = paginationCreate.page;
+                            let count = paginationContext.page;
                             let arr = [];
                             if (
                                 Math.ceil(
-                                    paginationCreate.items.length / paginationCreate.itemsNum,
+                                    paginationContext.items.length / paginationContext.itemsNum,
                                 ) > count
                             ) {
                                 ++count;
                             }
 
                             for (
-                                let index = paginationCreate.offset;
-                                index < paginationCreate.itemsNum;
+                                let index = paginationContext.offset;
+                                index < paginationContext.itemsNum;
                                 index++
                             ) {
-                                arr.push(paginationCreate.items[index]);
+                                arr.push(paginationContext.items[index]);
                             }
 
-                            let offset = paginationCreate.offset;
+                            let offset = paginationContext.offset;
 
-                            if (offset < paginationCreate.items.length) {
+                            if (offset < paginationContext.items.length) {
                                 offset += 3;
-                                paginationCreate.setOffset(offset);
-                                paginationCreate.setPage(count);
+                                paginationContext.setOffset(offset);
+                                paginationContext.setPage(count);
                             }
 
-                            if (offset > paginationCreate.items.length) {
-                                paginationCreate.setDisable(true);
-                                let rest = offset - paginationCreate.items.length;
+                            if (offset > paginationContext.items.length) {
+                                paginationContext.setDisable(true);
+                                let rest = offset - paginationContext.items.length;
                                 offset = offset - rest - 1;
-                                paginationCreate.setOffset(offset);
-                                paginationCreate.setPage(count);
+                                paginationContext.setOffset(offset);
+                                paginationContext.setPage(count);
                             }
                         }}
                     />

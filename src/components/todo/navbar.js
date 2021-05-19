@@ -1,10 +1,14 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
+import Login from './../auth/login';
+import SignUp from './../auth/signUp';
 
 const NavBar = () => {
   return (
     <Navbar bg="primary" variant="dark">
-      <Navbar.Brand style={{ paddingLeft: '1rem' }}>Home</Navbar.Brand>
+      <Navbar.Brand >Home</Navbar.Brand>
+      <Login />
+      <SignUp />
     </Navbar>
   );
 };
