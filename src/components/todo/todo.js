@@ -16,7 +16,7 @@ const ToDo = () => {
         document.title = `To Do List: incomplete ${paginationCreate.items.filter((item) => item.complete).length
             }`;
     });
-
+    // eslint-disable-next-line
     useEffect(fetchingData, []);
 
     return (
